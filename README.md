@@ -14,14 +14,26 @@ npm install riot-i18n
 
 ### 2. Examples
 
-include with commonjs loader
+include with module loader
 ``` javascript
-    var i18n = require('riot-i18n');    
+    var i18n = require('riot-i18n');  
+      
+    i18n.dictionary({
+        "zh": {
+            "Hello": "您好",
+            "I love you": "我爱你"
+        },
+        "jp": {
+            "Hello": "こんにちは",
+            "I love you": "わたしは、あなたを愛しています"
+        }
+    })  
 ```
 
 or via script tag
 ``` html
-    <script src="/path/to/riot-i18n/index.js"></script>
+    <script src="/path/to/riot-i18n/index.js"></script><!-- exposes global var 'i18n' --> 
+    
 ```
 
 The library registeres the 'i1-8n' tag with riot.
@@ -38,7 +50,7 @@ and provides a 'localise' method for translating outside of a tag
    i18n.localise('Hello') // -> 您好
 ```
 
-setting language can also be done via an observable with the mixin
+setting language can be achieved using i18n.setLanguage('lang') or triggered using a riot observable
 ``` html
 <riot-tag>
     <ul>
@@ -49,14 +61,19 @@ setting language can also be done via an observable with the mixin
         
    riot.mixin('i18n')
    
+   this.i18n.setLanguage('fr')
+   this.i18n.localise('Hello') // -> Hello
+   
    this.onClick = function(e) {
-        this.i18n.trigger('lang',  e.target.innerHTML);
+        this.i18n.trigger('lang',  e.target.innerHTML)
    }
    
-   this.i18n.trigger('lang',  'jp');
+   this.i18n.trigger('lang',  'jp')
    this.i18n.localise('Hello') // -> こんにちは
 </riot-tag>   
 ```
+
+If no dictionary language substitute is available the default will always be used 
 
 
 ## Copyright and license

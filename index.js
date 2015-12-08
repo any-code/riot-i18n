@@ -8,76 +8,77 @@
 
         riot-i18n
  */
+(function(def){
+    def(['riot'], function(riot) {
 
-"use strict";
+        var DEFAULT_LANG = 'en';
 
-if (typeof riot === "undefined") {
-    try {
-        var riot = require('riot');
-    } catch (e) {
-        throw Error('riotjs dependency not satisfied');
-    }
-}
-
-(function(exports) {
-
-    var obs = riot.observable()
-
-    exports._language = exports._default = 'en'
-
-    // Load lang.json file using whatever
-    // method you want and set _entities with that
-    exports._entities = {
-        "zh": {
-            "Hello": "您好",
-            "I love you": "我爱你"
-        },
-        "jp": {
-            "Hello": "こんにちは",
-            "I love you": "わたしは、あなたを愛しています"
-        }
-    }
-
-    exports.localise = function(key) {
-        if (!this._entities[this._language] || !this._entities[this._language][key]) {
-            // When a language or translation is not
-            // provided, just return the original text.
-            return key
+        function I18n() {
+            this._entitiies = {}
+            this._default = DEFAULT_LANG
+            this._language = this._default
+            var obs = riot.observable()
+            this.on = obs.on
+            this.trigger = obs.trigger
+            this.on('lang', this.setLanguage)
         }
 
-        // return the language substitue for the original text
-        return this._entities[this._language][key]
-    }
+        I18n.prototype.dictionary = function(dict) {
+            this._entities = dict;
+        }
 
-    exports.setLanguage = function(lang) {
-        this._language = lang || this._default
-        this.trigger('update')
-    }
+        I18n.prototype.defaultLanguage = function(lang) {
+            this._default = lang;
+        }
 
-    exports.getLanguage = function() {
-        return this._language
-    }
+        I18n.prototype.localise = function(key) {
+            if (!this._entities[this._language] || !this._entities[this._language][key]) {
+                // When a language or translation is not
+                // provided, just return the original text.
+                return key
+            }
 
-    exports.on = obs.on
-    exports.trigger = obs.trigger
+            // return the language substitue for the original text
+            return this._entities[this._language][key]
+        }
 
-    obs.on('lang', exports.setLanguage)
-    riot.mixin('i18n', { i18n: exports })
+        I18n.prototype.setLanguage = function(lang) {
+            this._language = lang || this._default
+            this.trigger('update')
+        }
 
-    //
-    //
-    // Register i1-8n tag
-    riot.tag2('i1-8n', '<span name="localised"></span><span name="original" class="original"><yield></yield></span>',
-        'i1-8n,[riot-tag="i1-8n"] { display: inline-block; } i1-8n .original,[riot-tag="i1-8n"] ' +
-        '.original { display: none; }', '',
-        function(opts) {
-        this.mixin('i18n'); this.i18n.on('update', function() { this.update() }.bind(this))
-        this.on('mount update', function() { this.localised.innerHTML = this.i18n.localise(this.original.innerHTML) })
+        I18n.prototype.getLanguage = function() {
+            return this._language
+        }
+
+        var i18n = new I18n()
+
+        riot.mixin('i18n', { i18n: i18n })
+
+        //
+        //
+        // Register i1-8n tag
+        riot.tag2('i1-8n', '<span name="localised"></span><span name="original" class="original"><yield></yield></span>',
+            'i1-8n,[riot-tag="i1-8n"] { display: inline-block; } i1-8n .original,[riot-tag="i1-8n"] ' +
+            '.original { display: none; }', '',
+            function(opts) {
+            this.mixin('i18n'); this.i18n.on('update', function() { this.update() }.bind(this))
+            this.on('mount update', function() { this.localised.innerHTML = this.i18n.localise(this.original.innerHTML) })
+        });
+        // END: Register i1-8n tag
+        //
+        //
+
+        return i18n;
     });
-    // END: Register i1-8n tag
-    //
-    //
-
-}(typeof exports === "undefined" ? (window.i18n = {}) : exports));
+}( (function(darr, name){
+    if (typeof require === 'undefined') {
+        return function (deps, factory) { this[name] = factory.apply(this, darr.map(function(arg) { return window[arg] })); }
+    } else if (typeof exports === 'undefined') {
+        return function (deps, factory) { define(name, deps, factory); }
+    } else {
+        return function (deps, factory) { module.exports = factory.apply(this, deps.map(require)); }
+    }
+})(['riot'], 'i18n') ));
 
 

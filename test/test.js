@@ -2,16 +2,26 @@ var testable = require('../index'),
     riot = require('riot');
 
 exports.setUp = function(callback) {
-  callback();
+    testable.dictionary({
+        "zh": {
+            "Hello": "您好",
+            "I love you": "我爱你"
+        },
+        "jp": {
+            "Hello": "こんにちは",
+            "I love you": "わたしは、あなたを愛しています"
+        }
+    })
+    callback();
 }
 
 exports.tearDown = function(callback) {
-  callback();
+    callback();
 }
 
 exports.testGetLanguage = function(test) {
-  test.equals(testable.getLanguage(), 'en', "unexpected value returned");
-  test.done();
+    test.equals(testable.getLanguage(), 'en', "unexpected value returned");
+    test.done();
 }
 
 exports.testSetLocalise = function(test) {
