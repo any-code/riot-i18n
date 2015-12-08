@@ -2,12 +2,13 @@
   "name": "riot-i18n",
   "version": "0.1.0",
   "description": "Riot JS internationalization tag and mixin",
-  "main": "index.js",
+  "main": "riot-i18n.min.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "nodeunit"
+    "test": "nodeunit",
+    "build": "uglifyjs index.js -o riot-i18n.min.js"
   },
   "repository": {
     "type": "git",
