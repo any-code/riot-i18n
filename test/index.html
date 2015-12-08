@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>riot-i18n test</title>
+</head>
+<body>
+    <i1-8n>Hello</i1-8n><i1-8n>I LOVE YOU</i1-8n><i1-8n>I love you</i1-8n><i1-8n>Hello</i1-8n><i1-8n>hello</i1-8n>
+    <i1-8n>HELLO</i1-8n><i1-8n>I love you</i1-8n>
+    <script src="//cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
+    <script src="../index.js"></script>
+    <script>
+        riot.mount('i1-8n')
+        setInterval(function() {
+            i18n.setLanguage(i18n.getLanguage() !== 'zh' ? 'zh' : 'jp')
+        }, 1000)
+    </script>
+</body>
+</html>

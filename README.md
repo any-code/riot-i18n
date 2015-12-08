@@ -14,9 +14,50 @@ npm install riot-i18n
 
 ### 2. Examples
 
+include with commonjs loader
 ``` javascript
-
+    var i18n = require('riot-i18n');    
 ```
+
+or via script tag
+``` html
+    <script src="/path/to/riot-i18n/index.js"></script>
+```
+
+The library registeres the 'i1-8n' tag with riot.
+``` html
+    <section>
+        <i1-8n>Hello</i1-8n><br>
+        <i1-8n>I love you</i1-8n>
+    </section>
+```        
+
+and provides a 'localise' method for translating outside of a tag
+``` javascript
+   i18n.setLanguage('zh')
+   i18n.localise('Hello') // -> 您好
+```
+
+setting language can also be done via an observable with the mixin
+``` html
+<riot-tag>
+    <ul>
+        <li><a onclick="{ onClick }">en</a></li>
+        <li><a onclick="{ onClick }">zh</a></li>
+        <li><a onclick="{ onClick }">jp</a></li>
+    </ul>    
+        
+   riot.mixin('i18n')
+   
+   this.onClick = function(e) {
+        this.i18n.trigger('lang',  e.target.innerHTML);
+   }
+   
+   this.i18n.trigger('lang',  'jp');
+   this.i18n.localise('Hello') // -> こんにちは
+</riot-tag>   
+```
+
 
 ## Copyright and license
 Copyright (c) 2015, Any Code <lee@anycode.io>

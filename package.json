@@ -13,7 +13,12 @@
     "type": "git",
     "url": "git+https://github.com/any-code/riot-i18n.git"
   },
-  "keywords": ["riot-i18n"],
+  "keywords": [
+    "riot-i18n", "riot", "riotjs",
+    "internationalization", "internationalisation",
+    "localisation", "localization",
+    "i18n","L10n","g11n"
+  ],
   "author": "Lee Tagg <lee@anycode.io>",
   "license": "ISC",
   "bugs": {
@@ -22,5 +27,8 @@
   "homepage": "https://github.com/any-code/riot-i18n#readme",
   "devDependencies": {
     "nodeunit": "^0.9.1"
+  },
+  "dependencies": {
+    "riot": "^2.3.11"
   }
 }
