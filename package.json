@@ -10,8 +10,7 @@
     "test": "nodeunit",
     "minify": "uglifyjs index.js --compress --screw-ie8 --mangle > riot-i18n.min.js",
     "pub-build": "npm run minify && npm run test",
-    "pub-git": "git add -A && git commit -m \"build\" && git push",
-    "pub": "npm run pub-build && npm run pub-git && npm version patch"
+    "pub-git": "git add -A && git commit -m \"build\" && git push && npm version patch"
   },
   "repository": {
     "type": "git",
