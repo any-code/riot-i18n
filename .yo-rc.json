@@ -1,0 +1,7 @@
+{
+  "generator-anycode": {
+    "name": "riot-i18n",
+    "description": "Riot JS internationalization tag and mixin",
+    "github": true
+  }
+}

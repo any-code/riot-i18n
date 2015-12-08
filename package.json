@@ -1,0 +1,26 @@
+{
+  "name": "riot-i18n",
+  "version": "0.1.0",
+  "description": "Riot JS internationalization tag and mixin",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nodeunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/any-code/riot-i18n.git"
+  },
+  "keywords": ["riot-i18n"],
+  "author": "Lee Tagg <lee@anycode.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/any-code/riot-i18n/issues"
+  },
+  "homepage": "https://github.com/any-code/riot-i18n#readme",
+  "devDependencies": {
+    "nodeunit": "^0.9.1"
+  }
+}
