@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "nodeunit",
-    "build": "uglifyjs index.js -o riot-i18n.min.js"
+    "minify": "uglifyjs index.js --compress --screw-ie8 --mangle > riot-i18n.min.js",
+    "pub": "npm run minify && npm run test"
   },
   "repository": {
     "type": "git",
