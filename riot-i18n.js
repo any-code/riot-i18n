@@ -47,8 +47,19 @@
 
         //
         //
-        // BEGIN RIOT TAGS
-        // END RIOT TAGS
+        //BEGIN RIOT TAGS
+riot.tag2('i1-8n', '<span name="localised"></span> <span name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"] { display: inline-block; } i1-8n .original,[riot-tag="i1-8n"] .original { display: none; }', '', function(opts) {
+        this.mixin('i18n')
+
+        this.i18n.on('update', function() {
+            this.update()
+        }.bind(this))
+
+        this.on('mount update', function() {
+            this.localised.innerHTML = this.i18n.localise(this.original.innerHTML)
+        })
+});
+        //END RIOT TAGS
         //
         //
 

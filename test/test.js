@@ -1,4 +1,4 @@
-var testable = require('../riot-i18n.min'),
+var testable = require('../riot-i18n'),
     riot = require('riot');
 
 exports.setUp = function(callback) {

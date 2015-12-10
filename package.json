@@ -8,8 +8,9 @@
   },
   "scripts": {
     "test": "nodeunit",
-    "minify": "uglifyjs index.js --compress --screw-ie8 --mangle > riot-i18n.min.js",
-    "pub-build": "npm run minify && npm run test",
+    "pub-pack": "node scripts/pack.js index.js i1-8n.tag riot-i18n.js",
+    "pub-minify": "uglifyjs riot-i18n.js --compress --screw-ie8 --mangle > riot-i18n.min.js",
+    "pub-build": "npm run pub-pack && npm run pub-minify && npm run test",
     "pub-npm": "npm version patch && npm publish"
   },
   "repository": {
