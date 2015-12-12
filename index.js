@@ -9,6 +9,7 @@
             this._language = this._default
             var obs = riot.observable()
             this.on = obs.on
+            this.off = obs.off
             this.trigger = obs.trigger
             this.on('lang', this.setLanguage)
         }
@@ -60,6 +61,7 @@
     } else if (typeof exports === 'undefined') {
         return function (deps, factory) { define(name, deps, factory); }
     } else {
+        require('riot'); // must find a solution to why require needs to be called with primitive
         return function (deps, factory) { module.exports = factory.apply(this, deps.map(require)); }
     }
 })(['riot'], 'i18n') ));
