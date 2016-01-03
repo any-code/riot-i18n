@@ -32,7 +32,7 @@ include with module loader
 
 or via script tag
 ``` html
-    <script src="/path/to/riot-i18n/index.js"></script><!-- exposes global var 'i18n' --> 
+    <script src="/path/to/riot-i18n/riot-i18n.min.js"></script><!-- exposes global var 'i18n' --> 
     
 ```
 
