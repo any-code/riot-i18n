@@ -44,7 +44,7 @@ function Module(exports, riot) {
     for (property in i18n) {
         exports[property] = i18n[property];
     }
-    riot.mixin('i18n', { i18n: i18n })
+    riot.mixin('i18n', { i18n: exports })
 
     //
     //
