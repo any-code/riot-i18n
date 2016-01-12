@@ -1,4 +1,18 @@
-function Module(exports, riot) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['exports', 'riot'], function (exports, riot) {
+            factory((root.i18n = exports), riot);
+        });
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        factory(exports, require('riot'));
+    } else {
+        // Browser globals
+        factory((root.i18n = {}), root.riot);
+    }
+}(this, function (exports, riot) {
+
     var DEFAULT_LANG = 'en';
 
     function I18n() {
@@ -53,16 +67,5 @@ function Module(exports, riot) {
     // END RIOT TAGS
     //
     //
-}
 
-Module.prototype.dependencies = ['riot'] // array of dependencies
-Module.prototype.global = ["i18n", "riot-i18n"]; // array of global identifiers for module, useful if module can be required using a hyphenated-name
-
-// Module UMD Loader
-(function (g, f) {
-    var d=Module.prototype.dependencies,gn=Module.prototype.global
-    if (typeof define==='function'&&define.amd){define(['exports'].concat(d||[]),f)}else if(typeof exports==='object'&&
-        typeof exports.nodeName!=='string'){f.apply(this,[exports].concat(d?d.map(require):[]))}else{if(typeof gn==='string'
-    )gn=[gn];g[gn[0]]={};gn.splice(1).map(function(d){g[d]=g[gn[0]]});f.apply(this, [g[gn[0]]].concat(d?d.map(function(d
-    ){return g[d]}):[]))}
-}(this, Module));
+}));
