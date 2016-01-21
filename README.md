@@ -36,7 +36,7 @@ or via script tag
     
 ```
 
-The library registeres the 'i1-8n' tag with riot.
+The library register's the 'i1-8n' tag with riot.
 ``` html
     <section>
         <i1-8n>Hello</i1-8n><br>
@@ -74,6 +74,30 @@ setting language can be achieved using i18n.setLanguage('lang') or triggered usi
 ```
 
 If no dictionary language substitute is available the default will always be used 
+
+localise method substitution object
+```javascript
+
+    this.i18n.localise("Hello {user.name}!", {
+        user: {
+            name: "Goodman"
+        }
+    }) // --> Hello Goodman!
+
+```
+
+nested properties
+```javascript
+    i18n.dictionary({
+        "en": {
+            "user": {
+                "name": "User Name"
+            }
+    }) 
+
+    this.i18n.localise("user.name") // --> User Name
+```
+
 
 
 ## Copyright and license
