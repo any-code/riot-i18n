@@ -3,6 +3,11 @@ var testable = require('../riot-i18n');
 exports.setUp = function(callback) {
     testable.off('*');
     testable.dictionary({
+        "te": {
+          "nested": {
+              "property": "Nested Property"
+          }
+        },
         "zh": {
             "Hello": "您好",
             "I love you": "我爱你"
@@ -42,6 +47,15 @@ exports.testSetLocaliseAtOdds = function(test) {
     testable.setLanguage('fr');
 }
 
+exports.testNestedProperty = function(test) {
+    testable.on('update', function() {
+        testable.off('update');
+        test.equals(testable.localise("nested.property"), "Nested Property", "Unexpected value returned");
+        test.done();
+    }.bind(this))
+    testable.setLanguage('te');
+}
+
 exports.testSetLocaliseMultiples = function(test) {
     var triggered = 0;
     testable.on('update', function() {
@@ -56,4 +70,19 @@ exports.testSetLocaliseMultiples = function(test) {
     testable.setLanguage('jp');
     testable.setLanguage('zh');
 }
+
+exports.testSetLocaliseWithSubstitutions = function(test) {
+    var obj = {
+        data: {
+            user: {
+                name: "Girl Boy",
+                email: "girl.boy@example.com"
+            }
+        }
+    }
+
+    test.equals(testable.localise("Hello {data.user.name}, is your email address really {data.user.email}", obj), 'Hello Girl Boy, is your email address really girl.boy@example.com', "unexpected value returned");
+    test.done();
+}
+
 

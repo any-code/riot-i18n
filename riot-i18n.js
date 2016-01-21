@@ -34,15 +34,47 @@
         this._default = lang;
     }
 
-    I18n.prototype.localise = function(key) {
-        if (!this._entities[this._language] || !this._entities[this._language][key]) {
-            // When a language or translation is not
-            // provided, just return the original text.
-            return key
+    I18n.prototype.localise = function(key, data) {
+        var substitute, locale;
+
+        function flatten(n, f, d, k) {
+            k = k || "", f = f || {}, d = d || 0
+            if (!n.length && Object.keys(n).length > 0) {
+                for (i in n) {
+                    if (k.split('.').length > d) { k = k.split('.').splice(0, d).join('.') }
+                    k = (d == 0) ? i : k + "." + i, f = flatten(n[i], f, d + 1, k)
+                }
+            } else f[k] = n;
+            return f;
         }
 
-        // return the language substitue for the original text
-        return this._entities[this._language][key]
+        if (!this._entities[this._language]) {
+            // When a language is not provided,
+            // treat the key as substitution
+            substitute = key;
+        }
+
+        if (!substitute) {
+            locale = flatten(this._entities[this._language]);
+
+            if (!locale[key]) {
+                // When a translation is not
+                // provided, just return the original text.
+                substitute = key
+            } else {
+                // return the language substitue for the original text
+                substitute = locale[key];
+            }
+        }
+
+        if (data) {
+            var _data = flatten(data);
+            for (key in _data) {
+                substitute = substitute.replace(new RegExp("{" + key + "}", "g"), _data[key]);
+            }
+        }
+
+        return substitute;
     }
 
     I18n.prototype.setLanguage = function(lang) {
