@@ -39,7 +39,7 @@
 
         function flatten(n, f, d, k) {
             k = k || "", f = f || {}, d = d || 0
-            if (!n.length && Object.keys(n).length > 0) {
+            if (n && !n.length && Object.keys(n).length > 0) {
                 for (i in n) {
                     if (k.split('.').length > d) { k = k.split('.').splice(0, d).join('.') }
                     k = (d == 0) ? i : k + "." + i, f = flatten(n[i], f, d + 1, k)
