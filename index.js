@@ -39,14 +39,13 @@
 
         function flatten(n, f, d, k) {
             k = k || "", f = f || {}, d = d || 0
-            var oKn = n && !n.length ? Object.keys(n) : [],
-                kP = k.split('.'),
-                nextK = kP.splice(0, d).join('.'),
-                i;
+            var nObj = n && !n.length,
+                nKeys = nObj ? Object.keys(n).length : 0;
 
-            if (n && !n.length && oKn.length > 0) {
+            if (nObj && nKeys > 0) {
+                var i;
                 for (i in n) {
-                    if (kP.length > d) { k = nextK }
+                    if (k.split('.').length > d) { k = k.split('.').splice(0, d).join('.') }
                     k = (d == 0) ? i : k + "." + i, f = flatten(n[i], f, d + 1, k)
                 }
             } else f[k] = n;
@@ -67,7 +66,7 @@
                 // provided, just return the original text.
                 substitute = key
             } else {
-                // return the language substitue on the original text
+                // return the language substitue for the original text
                 substitute = locale[key];
             }
         }
@@ -75,7 +74,6 @@
         if (data) {
             var _data = flatten(data),
                 _key;
-
             for (_key in _data) {
                 substitute = substitute.replace(new RegExp("{" + _key + "}", "g"), _data[_key]);
             }
