@@ -2,10 +2,28 @@ var testable = require('../riot-i18n');
 
 exports.setUp = function(callback) {
     testable.off('*');
+
     testable.dictionary({
         "te": {
           "nested": {
-              "property": "Nested Property"
+              "property": {
+                  "deep": {
+                      "deep": {
+                          "deep": {
+                              "deep": {
+                                  "deep": "cave dweller"
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "create":{
+            "labels": {
+                "chat:": {
+                    "test": "au revoir"
+                }
+            }
           }
         },
         "zh": {
@@ -50,11 +68,21 @@ exports.testSetLocaliseAtOdds = function(test) {
 exports.testNestedProperty = function(test) {
     testable.on('update', function() {
         testable.off('update');
-        test.equals(testable.localise("nested.property"), "Nested Property", "Unexpected value returned");
+        test.equals(testable.localise("nested.property.deep.deep.deep.deep.deep"), "cave dweller", "Unexpected value returned");
         test.done();
     }.bind(this))
     testable.setLanguage('te');
 }
+
+exports.testAnotherNestedProperty = function(test) {
+    testable.on('update', function() {
+        testable.off('update');
+        test.equals(testable.localise("create.labels.chat:.test"), "au revoir", "Unexpected value returned");
+        test.done();
+    }.bind(this))
+    testable.setLanguage('te');
+}
+
 
 exports.testSetLocaliseMultiples = function(test) {
     var triggered = 0;
@@ -84,5 +112,3 @@ exports.testSetLocaliseWithSubstitutions = function(test) {
     test.equals(testable.localise("Hello {data.user.name}, is your email address really {data.user.email}", obj), 'Hello Girl Boy, is your email address really girl.boy@example.com', "unexpected value returned");
     test.done();
 }
-
-
