@@ -1,0 +1,29 @@
+{
+  "name": "riot-i18n",
+  "description": "Riot JS internationalization tag and mixin",
+  "main": "riot-i18n.min.js",
+  "authors": [
+    "Lee Tagg <lee@anycode.io>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "riot-i18n",
+    "riot",
+    "riotjs",
+    "internationalization",
+    "internationalisation",
+    "localisation",
+    "localization",
+    "i18n",
+    "L10n",
+    "g11n"
+  ],
+  "homepage": "https://github.com/any-code/riot-i18n",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
