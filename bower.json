@@ -18,12 +18,16 @@
     "L10n",
     "g11n"
   ],
+  "dependencies": {
+    "riot": "^2.3.11"
+  },
   "homepage": "https://github.com/any-code/riot-i18n",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "package.json"
   ]
 }
