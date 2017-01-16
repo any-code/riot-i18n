@@ -1,6 +1,6 @@
 {
   "name": "riot-i18n",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "description": "Riot JS internationalization tag and mixin",
   "main": "riot-i18n.min.js",
   "directories": {
@@ -39,6 +39,6 @@
     "nodeunit": "^0.9.1"
   },
   "dependencies": {
-    "riot": "^2.3.11"
+    "riot": "^3.0"
   }
 }

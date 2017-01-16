@@ -9,8 +9,8 @@
         }
     </style>
 
-    <span name="localised"></span>
-    <span name="original" class="original"><yield /></span>
+    <span ref="localised"></span>
+    <span ref="original" class="original"><yield /></span>
 
     <script>
         this.mixin('i18n')
@@ -19,9 +19,17 @@
             this.update()
         }.bind(this))
 
-        this.on('mount update', function() {
-            this.localised.innerHTML = this.i18n.localise(this.original.innerHTML)
+        this.on('update', function() {
+            this.localise()
         })
+
+        this.on('mount', function() {
+            this.localise()
+        })
+
+        localise() {
+            this.refs.localised.innerHTML = this.refs.i18n.localise(this.refs.original.innerHTML)
+        }
     </script>
 
 </i1-8n>
