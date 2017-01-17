@@ -19,13 +19,9 @@
             this.update()
         }.bind(this))
 
-        this.on('update', function() {
-            this.localise()
-        })
+        this.on('update', this.localise)
 
-        this.on('mount', function() {
-            this.localise()
-        })
+        this.on('mount', this.localise)
 
         localise() {
             this.refs.localised.innerHTML = this.refs.i18n.localise(this.refs.original.innerHTML)
