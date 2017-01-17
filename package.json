@@ -1,6 +1,6 @@
 {
   "name": "riot-i18n",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Riot JS internationalization tag and mixin",
   "main": "riot-i18n.min.js",
   "directories": {
