@@ -36,7 +36,8 @@
   },
   "homepage": "https://github.com/any-code/riot-i18n#readme",
   "devDependencies": {
-    "nodeunit": "^0.9.1"
+    "nodeunit": "^0.9.1",
+    "riot": "^3.4.2"
   },
   "peerDependencies": {
     "riot": "^2.3.11 || ^3.0.0"
