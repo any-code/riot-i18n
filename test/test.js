@@ -112,3 +112,18 @@ exports.testSetLocaliseWithSubstitutions = function(test) {
     test.equals(testable.localise("Hello {data.user.name}, is your email address really {data.user.email}", obj), 'Hello Girl Boy, is your email address really girl.boy@example.com', "unexpected value returned");
     test.done();
 }
+
+exports.testSetSpecialCharacters = function(test) {
+    var obj = {
+        data: {
+            user: {
+                balance: 1000,
+                currency: 'USD'
+            }
+        }
+    }
+
+    testable.setSpecialCharacters('{{', '}}');
+    test.equals(testable.localise("Your balance is {{data.user.currency}} {{data.user.balance}}", obj), 'Your balance is USD 1000', "unexpected value returned");
+    test.done();
+}

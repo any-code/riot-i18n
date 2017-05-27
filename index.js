@@ -16,6 +16,8 @@
     var DEFAULT_LANG = 'en';
 
     function I18n() {
+        this._openCharacter = '{';
+        this._closeCharacter = '}';
         this._entities = {}
         this._default = DEFAULT_LANG
         this._language = this._default
@@ -75,11 +77,17 @@
             var _data = flatten(data),
                 _key;
             for (_key in _data) {
-                substitute = substitute.replace(new RegExp("{" + _key + "}", "g"), _data[_key]);
+                substitute = substitute.replace(new RegExp(this._openCharacter + _key + this._closeCharacter, "g"), _data[_key]);
             }
         }
 
         return substitute;
+    }
+
+    I18n.prototype.setSpecialCharacters = function(open, close) {
+        if(open) this._openCharacter = open;
+        if(close) this._closeCharacter = close;
+        this.trigger('update')
     }
 
     I18n.prototype.setLanguage = function(lang) {
