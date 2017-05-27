@@ -17,7 +17,7 @@ npm install riot-i18n
 include with module loader
 ``` javascript
     var i18n = require('riot-i18n');  
-      
+
     i18n.dictionary({
         "zh": {
             "Hello": "您好",
@@ -32,8 +32,8 @@ include with module loader
 
 or via script tag
 ``` html
-    <script src="/path/to/riot-i18n/riot-i18n.min.js"></script><!-- exposes global var 'i18n' --> 
-    
+    <script src="/path/to/riot-i18n/riot-i18n.min.js"></script><!-- exposes global var 'i18n' -->
+
 ```
 
 The library register's the 'i1-8n' tag with riot.
@@ -58,22 +58,22 @@ setting language can be achieved using i18n.setLanguage('lang') or triggered usi
         <li><a onclick="{ onClick }">zh</a></li>
         <li><a onclick="{ onClick }">jp</a></li>
     </ul>    
-        
+
    riot.mixin('i18n')
-   
+
    this.i18n.setLanguage('fr')
    this.i18n.localise('Hello') // -> Hello
-   
+
    this.onClick = function(e) {
         this.i18n.trigger('lang',  e.target.innerHTML)
    }
-   
+
    this.i18n.trigger('lang',  'jp')
    this.i18n.localise('Hello') // -> こんにちは
 </riot-tag>   
 ```
 
-If no dictionary language substitute is available the default will always be used 
+If no dictionary language substitute is available the default will always be used
 
 localise method substitution object
 ```javascript
@@ -93,9 +93,19 @@ nested properties
             "user": {
                 "name": "User Name"
             }
-    }) 
+    })
 
     this.i18n.localise("user.name") // --> User Name
+```
+
+change special characters from default {} to specified {{{}}}
+```javascript
+    this.i18n.setSpecialCharacters('{{{', '}}}')
+    this.i18n.localise("Hello {{{user.name}}}!", {
+        user: {
+            name: "Goodman"
+        }
+    }) // --> Hello Goodman!
 ```
 
 

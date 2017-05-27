@@ -16,6 +16,8 @@
     var DEFAULT_LANG = 'en';
 
     function I18n() {
+        this._openCharacter = '{';
+        this._closeCharacter = '}';
         this._entities = {}
         this._default = DEFAULT_LANG
         this._language = this._default
@@ -75,11 +77,17 @@
             var _data = flatten(data),
                 _key;
             for (_key in _data) {
-                substitute = substitute.replace(new RegExp("{" + _key + "}", "g"), _data[_key]);
+                substitute = substitute.replace(new RegExp(this._openCharacter + _key + this._closeCharacter, "g"), _data[_key]);
             }
         }
 
         return substitute;
+    }
+
+    I18n.prototype.setSpecialCharacters = function(open, close) {
+        if(open) this._openCharacter = open;
+        if(close) this._closeCharacter = close;
+        this.trigger('update')
     }
 
     I18n.prototype.setLanguage = function(lang) {
@@ -102,7 +110,7 @@
     //
     //
     //BEGIN RIOT TAGS
-riot.tag2('i1-8n', '<span ref="localised" name="localised"></span> <span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline-block; } i1-8n .original,[riot-tag="i1-8n"] .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
+riot.tag2('i1-8n', '<span ref="localised" name="localised"></span> <span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[data-is="i1-8n"]{ display: inline-block; } i1-8n .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
         this.mixin('i18n')
 
         this.i18n.on('update', function() {
@@ -110,7 +118,9 @@ riot.tag2('i1-8n', '<span ref="localised" name="localised"></span> <span ref="or
         }.bind(this))
 
 		this.on('mount', function() {
+
 			this.hasRefs = this.refs != undefined
+
 			this.localise()
 		})
 
