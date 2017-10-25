@@ -102,30 +102,32 @@
     //
     //
     //BEGIN RIOT TAGS
-riot.tag2('i1-8n', '<span ref="localised" name="localised"></span> <span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline-block; } i1-8n .original,[riot-tag="i1-8n"] .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
-        this.mixin('i18n')
+riot.tag2('i1-8n', '<span ref="localised" name="localised"></span><span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline; } i1-8n .original,[riot-tag="i1-8n"] .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
+    this.mixin('i18n')
 
-        this.i18n.on('update', function() {
-            this.update()
-        }.bind(this))
+    this.i18n.on('update', function() {
+        this.update()
+    }.bind(this))
 
-		this.on('mount', function() {
-			this.hasRefs = this.refs != undefined
-			this.localise()
-		})
+	this.on('mount', function() {
+		this.hasRefs = this.refs != undefined
+		this.localise()
+	})
 
-        this.on('update', function() {
-			this.localise()
-		})
+    this.on('update', function() {
+		this.localise()
+	})
 
-		this.localise = function() {
-			var refs = this.hasRefs ? this.refs : this;
-			refs.localised.innerHTML = this.i18n.localise(refs.original.innerHTML);
+	this.localise = function() {
+		var refs = this.hasRefs ? this.refs : this;
+		var phrase = this.i18n.localise(refs.original.innerHTML);
+		for (var key in this.opts) {
+			phrase = phrase.replace('{' + key.replace(/([A-Z])/g, "-$1").toLowerCase() + '}', this.opts[key]);
 		}
-
+		refs.localised.innerHTML = phrase;
+	}
 });
-        //END RIOT TAGS
+    //END RIOT TAGS
     //
     //
-
 }));
