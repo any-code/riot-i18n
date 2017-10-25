@@ -102,7 +102,7 @@
     //
     //
     //BEGIN RIOT TAGS
-riot.tag2('i1-8n', '<span ref="localised" name="localised"></span> <span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline-block; } i1-8n .original,[riot-tag="i1-8n"] .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
+riot.tag2('i1-8n', '<span ref="localised" name="localised"></span><span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline; } i1-8n .original,[riot-tag="i1-8n"] .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
         this.mixin('i18n')
 
         this.i18n.on('update', function() {
