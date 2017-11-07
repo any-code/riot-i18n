@@ -124,7 +124,7 @@ riot.tag2('i1-8n', '<span ref="localised" name="localised"></span><span ref="ori
 		for (var key in this.opts) {
 			phrase = phrase.replace('{' + key.replace(/([A-Z])/g, "-$1").toLowerCase() + '}', this.opts[key]);
 		}
-		refs.localised.innerHTML = phrase;
+		this.root.innerHTML = phrase;
 	}
 });
     //END RIOT TAGS
