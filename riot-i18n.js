@@ -91,7 +91,7 @@
     }
     riot.mixin('i18n', { i18n: exports })
 
-	riot.tag2('i1-8n', '<span ref="localized"></span><span ref="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline; } i1-8n [ref="original"],[riot-tag="i1-8n"] [ref="original"],[data-is="i1-8n"] [ref="original"] { display: none; }', '', function(opts) {
+	riot.tag2('i1-8n', '<span ref="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline; }', '', function(opts) {
 	    this.mixin('i18n')
 
 	    this.i18n.on('update', function() {
@@ -113,7 +113,13 @@
 			for (var key in this.opts) {
 				phrase = phrase.replace('{' + key.replace(/([A-Z])/g, "-$1").toLowerCase() + '}', this.opts[key]);
 			}
-			refs.localized.innerHTML = phrase;
+			var parentNode = this.root;
+			while (parentNode.hasChildNodes()) {
+    			parentNode.removeChild(parentNode.firstChild);
+			}
+			var span = document.createElement('span');
+			span.innerHTML = phrase;
+			parentNode.appendChild(span);
 		}
 	});
 }));
