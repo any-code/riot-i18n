@@ -1,14 +1,11 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
         define(['exports', 'riot'], function (exports, riot) {
             factory((root.i18n = exports), riot);
         });
     } else if (typeof exports === 'object') {
-        // CommonJS
         factory(exports, require('riot'));
     } else {
-        // Browser globals
         factory((root.i18n = {}), root.riot);
     }
 }(this, function (exports, riot) {
@@ -16,14 +13,14 @@
     var DEFAULT_LANG = 'en';
 
     function I18n() {
-        this._entities = {}
-        this._default = DEFAULT_LANG
-        this._language = this._default
-        var obs = riot.observable()
-        this.on = obs.on
-        this.off = obs.off
-        this.trigger = obs.trigger
-        this.on('lang', this.setLanguage)
+        this._entities = {};
+        this._default = DEFAULT_LANG;
+        this._language = this._default;
+        var obs = riot.observable();
+        this.on = obs.on;
+        this.off = obs.off;
+        this.trigger = obs.trigger;
+        this.on('lang', this.setLanguage);
     }
 
     I18n.prototype.dictionary = function(dict) {
@@ -34,7 +31,7 @@
         this._default = lang;
     }
 
-    I18n.prototype.localise = function(key, data) {
+    I18n.prototype.localize = function(key, data) {
         var substitute, locale;
 
         function flatten(n, f, d, k) {
@@ -46,15 +43,13 @@
                 var i;
                 for (i in n) {
                     if (k.split('.').length > d) { k = k.split('.').splice(0, d).join('.') }
-                    k = (d == 0) ? i : k + "." + i, f = flatten(n[i], f, d + 1, k)
+                    k = (d == 0) ? i : k + "." + i, f = flatten(n[i], f, d + 1, k);
                 }
             } else f[k] = n;
             return f;
         }
 
         if (!this._entities[this._language]) {
-            // When a language is not provided,
-            // treat the key as substitution
             substitute = key;
         }
 
@@ -62,11 +57,8 @@
             locale = flatten(this._entities[this._language]);
 
             if (!locale[key]) {
-                // When a translation is not
-                // provided, just return the original text.
-                substitute = key
+                substitute = key;
             } else {
-                // return the language substitue for the original text
                 substitute = locale[key];
             }
         }
@@ -84,7 +76,7 @@
 
     I18n.prototype.setLanguage = function(lang) {
         this._language = lang || this._default
-        this.trigger('update')
+        this.trigger('update');
     }
 
     I18n.prototype.getLanguage = function() {
@@ -99,35 +91,29 @@
     }
     riot.mixin('i18n', { i18n: exports })
 
-    //
-    //
-    //BEGIN RIOT TAGS
-riot.tag2('i1-8n', '<span ref="localised" name="localised"></span><span ref="original" name="original" class="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline; } i1-8n .original,[riot-tag="i1-8n"] .original,[data-is="i1-8n"] .original{ display: none; }', '', function(opts) {
-    this.mixin('i18n')
+	riot.tag2('i1-8n', '<span ref="localized"></span><span ref="original"><yield></yield></span>', 'i1-8n,[riot-tag="i1-8n"],[data-is="i1-8n"]{ display: inline; } i1-8n [ref="original"],[riot-tag="i1-8n"] [ref="original"],[data-is="i1-8n"] [ref="original"] { display: none; }', '', function(opts) {
+	    this.mixin('i18n')
 
-    this.i18n.on('update', function() {
-        this.update()
-    }.bind(this))
+	    this.i18n.on('update', function() {
+	        this.update();
+	    }.bind(this))
 
-	this.on('mount', function() {
-		this.hasRefs = this.refs != undefined
-		this.localise()
-	})
+		this.on('mount', function() {
+			this.hasRefs = this.refs != undefined
+			this.localize();
+		})
 
-    this.on('update', function() {
-		this.localise()
-	})
+	    this.on('update', function() {
+			this.localize();
+		})
 
-	this.localise = function() {
-		var refs = this.hasRefs ? this.refs : this;
-		var phrase = this.i18n.localise(refs.original.innerHTML);
-		for (var key in this.opts) {
-			phrase = phrase.replace('{' + key.replace(/([A-Z])/g, "-$1").toLowerCase() + '}', this.opts[key]);
+		this.localize = function() {
+			var refs = this.hasRefs ? this.refs : this;
+			var phrase = this.i18n.localize(refs.original.innerHTML);
+			for (var key in this.opts) {
+				phrase = phrase.replace('{' + key.replace(/([A-Z])/g, "-$1").toLowerCase() + '}', this.opts[key]);
+			}
+			refs.localized.innerHTML = phrase;
 		}
-		this.root.innerHTML = phrase;
-	}
-});
-    //END RIOT TAGS
-    //
-    //
+	});
 }));
