@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>riot-i18n test</title>
+    <title>riot-translate test</title>
 </head>
 <body>
-    <i1-8n>Hello</i1-8n><i1-8n>I LOVE YOU</i1-8n><i1-8n>I love you</i1-8n><i1-8n>Hello</i1-8n><i1-8n>hello</i1-8n>
-    <i1-8n>HELLO</i1-8n><i1-8n>I love you</i1-8n>
+    <translate>Hello</translate><translate>I LOVE YOU</translate><translate>I love you</translate><translate>Hello</translate><translate>hello</translate>
+    <translate>HELLO</translate><translate>I love you</translate>
     <script src="//cdn.jsdelivr.net/riot/3.0.7/riot+compiler.min.js"></script>
-    <script src="../riot-i18n.js"></script>
+    <script src="../riot-translate.js"></script>
     <script>
-        riot.mount('i1-8n')
+        riot.mount('translate');
 
-        i18n.dictionary({
+        translate.dictionary({
             "zh": {
                 "Hello": "您好",
                 "I love you": "我爱你"
@@ -24,8 +24,8 @@
         });
 
         setInterval(function() {
-            i18n.setLanguage(i18n.getLanguage() !== 'zh' ? 'zh' : 'jp')
-        }, 1000)
+            translate.setLanguage(translate.getLanguage() !== 'zh' ? 'zh' : 'jp')
+        }, 1000);
     </script>
 </body>
 </html>
