@@ -1,19 +1,20 @@
 {
-  "name": "riot-i18n",
+  "name": "riot-translate",
   "description": "Riot JS internationalization tag and mixin",
-  "main": "riot-i18n.min.js",
+  "main": "riot-translate.min.js",
   "authors": [
     "Lee Tagg <lee@anycode.io>"
   ],
   "license": "ISC",
   "keywords": [
-    "riot-i18n",
+    "riot-translate",
     "riot",
     "riotjs",
     "internationalization",
     "internationalisation",
     "localisation",
     "localization",
+    "translate",
     "i18n",
     "L10n",
     "g11n"
@@ -21,7 +22,7 @@
   "dependencies": {
     "riot": "^2.3.11"
   },
-  "homepage": "https://github.com/any-code/riot-i18n",
+  "homepage": "https://github.com/rob-clicktripz/riot-translate",
   "ignore": [
     "**/.*",
     "node_modules",

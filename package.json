@@ -1,40 +1,40 @@
 {
-  "name": "riot-i18n",
+  "name": "riot-translate",
   "version": "0.2.1",
   "description": "Riot JS internationalization tag and mixin",
-  "main": "riot-i18n.min.js",
+  "main": "riot-translate.min.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "nodeunit",
-    "pub-pack": "node scripts/pack.js index.js i1-8n.tag riot-i18n.js",
-    "pub-minify": "uglifyjs riot-i18n.js --compress --screw-ie8 --mangle > riot-i18n.min.js",
+    "pub-pack": "node scripts/pack.js index.js translate.tag riot-translate.js",
+    "pub-minify": "uglifyjs riot-translate.js --compress --screw-ie8 --mangle > riot-translate.min.js",
     "pub-build": "npm run pub-pack && npm run pub-minify && npm run test",
     "pub-npm": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/any-code/riot-i18n.git"
+    "url": "git+https://github.com/rob-clicktripz/riot-translate.git"
   },
   "keywords": [
-    "riot-i18n",
+    "riot-translate",
     "riot",
     "riotjs",
     "internationalization",
     "internationalisation",
     "localisation",
     "localization",
-    "i18n",
+    "translate",
     "L10n",
     "g11n"
   ],
   "author": "Lee Tagg <lee@anycode.io>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/any-code/riot-i18n/issues"
+    "url": "https://github.com/rob-clicktripz/riot-translate/issues"
   },
-  "homepage": "https://github.com/any-code/riot-i18n#readme",
+  "homepage": "https://github.com/rob-clicktripz/riot-translate#readme",
   "devDependencies": {
     "nodeunit": "^0.9.1",
     "riot": "^3.4.2"

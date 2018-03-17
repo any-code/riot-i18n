@@ -1,6 +1,6 @@
-# riot-i18n
+# riot-translate
 
-[![Build Status](https://travis-ci.org/any-code/riot-i18n.svg?branch=master)](https://travis-ci.org/any-code/riot-i18n)
+[![Build Status](https://travis-ci.org/any-code/riot-translate.svg?branch=master)](https://travis-ci.org/any-code/riot-translate)
 
 > Riot JS internationalization tag and mixin
 
@@ -9,16 +9,16 @@
 ### 1. Installation
 
 ``` bash
-npm install riot-i18n
+npm install riot-translate
 ```
 
 ### 2. Examples
 
 include with module loader
 ``` javascript
-    var i18n = require('riot-i18n');  
-      
-    i18n.dictionary({
+    var translate = require('riot-translate');  
+
+    translate.dictionary({
         "zh": {
             "Hello": "您好",
             "I love you": "我爱你"
@@ -32,25 +32,25 @@ include with module loader
 
 or via script tag
 ``` html
-    <script src="/path/to/riot-i18n/riot-i18n.min.js"></script><!-- exposes global var 'i18n' --> 
-    
+    <script src="/path/to/riot-translate/riot-translate.min.js"></script><!-- exposes global var 'translate' -->
+
 ```
 
-The library register's the 'i1-8n' tag with riot.
+The library register's the 'translate' tag with riot.
 ``` html
     <section>
-        <i1-8n>Hello</i1-8n><br>
-        <i1-8n>I love you</i1-8n>
+        <translate>Hello</translate><br>
+        <translate>I love you</translate>
     </section>
 ```        
 
-and provides a 'localise' method for translating outside of a tag
+and provides an 'apply' method for translating outside of a tag
 ``` javascript
-   i18n.setLanguage('zh')
-   i18n.localise('Hello') // -> 您好
+   translate.setLanguage('zh')
+   translate.apply('Hello') // -> 您好
 ```
 
-setting language can be achieved using i18n.setLanguage('lang') or triggered using a riot observable
+setting language can be achieved using translate.setLanguage('lang') or triggered using a riot observable
 ``` html
 <riot-tag>
     <ul>
@@ -58,27 +58,27 @@ setting language can be achieved using i18n.setLanguage('lang') or triggered usi
         <li><a onclick="{ onClick }">zh</a></li>
         <li><a onclick="{ onClick }">jp</a></li>
     </ul>    
-        
-   riot.mixin('i18n')
-   
-   this.i18n.setLanguage('fr')
-   this.i18n.localise('Hello') // -> Hello
-   
+
+   riot.mixin('translate')
+
+   this.translate.setLanguage('fr')
+   this.translate.apply('Hello') // -> Hello
+
    this.onClick = function(e) {
-        this.i18n.trigger('lang',  e.target.innerHTML)
+        this.translate.trigger('lang',  e.target.innerHTML)
    }
-   
-   this.i18n.trigger('lang',  'jp')
-   this.i18n.localise('Hello') // -> こんにちは
+
+   this.translate.trigger('lang',  'jp')
+   this.translate.apply('Hello') // -> こんにちは
 </riot-tag>   
 ```
 
-If no dictionary language substitute is available the default will always be used 
+If no dictionary language substitute is available the default will always be used
 
-localise method substitution object
+translate method substitution object
 ```javascript
 
-    this.i18n.localise("Hello {user.name}!", {
+    this.translate.apply("Hello {user.name}!", {
         user: {
             name: "Goodman"
         }
@@ -88,14 +88,14 @@ localise method substitution object
 
 nested properties
 ```javascript
-    i18n.dictionary({
+    translate.dictionary({
         "en": {
             "user": {
                 "name": "User Name"
             }
-    }) 
+    })
 
-    this.i18n.localise("user.name") // --> User Name
+    this.translate.apply("user.name") // --> User Name
 ```
 
 

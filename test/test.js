@@ -1,4 +1,4 @@
-var testable = require('../riot-i18n');
+var testable = require('../riot-translate');
 
 exports.setUp = function(callback) {
     testable.off('*');
@@ -47,19 +47,19 @@ exports.testGetLanguage = function(test) {
     test.done();
 }
 
-exports.testSetLocalise = function(test) {
+exports.testSetTranslate = function(test) {
     testable.on('update', function() {
-        test.equals(testable.localise('Hello'), 'こんにちは', "unexpected value returned")
+        test.equals(testable.apply('Hello'), 'こんにちは', "unexpected value returned")
         test.done();
 
     }.bind(this))
     testable.setLanguage('jp');
 }
 
-exports.testSetLocaliseAtOdds = function(test) {
+exports.testSetTranslateAtOdds = function(test) {
     testable.on('update', function() {
         testable.off('update');
-        test.equals(testable.localise('Hello'), 'Hello', "unexpected value returned")
+        test.equals(testable.apply('Hello'), 'Hello', "unexpected value returned")
         test.done();
     }.bind(this))
     testable.setLanguage('fr');
@@ -68,7 +68,7 @@ exports.testSetLocaliseAtOdds = function(test) {
 exports.testNestedProperty = function(test) {
     testable.on('update', function() {
         testable.off('update');
-        test.equals(testable.localise("nested.property.deep.deep.deep.deep.deep"), "cave dweller", "Unexpected value returned");
+        test.equals(testable.apply("nested.property.deep.deep.deep.deep.deep"), "cave dweller", "Unexpected value returned");
         test.done();
     }.bind(this))
     testable.setLanguage('te');
@@ -77,14 +77,14 @@ exports.testNestedProperty = function(test) {
 exports.testAnotherNestedProperty = function(test) {
     testable.on('update', function() {
         testable.off('update');
-        test.equals(testable.localise("create.labels.chat:.test"), "au revoir", "Unexpected value returned");
+        test.equals(testable.apply("create.labels.chat:.test"), "au revoir", "Unexpected value returned");
         test.done();
     }.bind(this))
     testable.setLanguage('te');
 }
 
 
-exports.testSetLocaliseMultiples = function(test) {
+exports.testSetTranslateMultiples = function(test) {
     var triggered = 0;
     testable.on('update', function() {
         triggered++;
@@ -99,7 +99,7 @@ exports.testSetLocaliseMultiples = function(test) {
     testable.setLanguage('zh');
 }
 
-exports.testSetLocaliseWithSubstitutions = function(test) {
+exports.testSetTranslateWithSubstitutions = function(test) {
     var obj = {
         data: {
             user: {
@@ -109,6 +109,6 @@ exports.testSetLocaliseWithSubstitutions = function(test) {
         }
     }
 
-    test.equals(testable.localise("Hello {data.user.name}, is your email address really {data.user.email}", obj), 'Hello Girl Boy, is your email address really girl.boy@example.com', "unexpected value returned");
+    test.equals(testable.apply("Hello {data.user.name}, is your email address really {data.user.email}", obj), 'Hello Girl Boy, is your email address really girl.boy@example.com', "unexpected value returned");
     test.done();
 }
