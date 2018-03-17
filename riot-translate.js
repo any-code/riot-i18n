@@ -89,6 +89,37 @@
     for (property in translate) {
         exports[property] = translate[property];
     }
-
     riot.mixin('translate', { translate: exports });
+
+	riot.tag2('translate', '<span ref="original"><yield></yield></span>', 'translate,[riot-tag="translate"],[data-is="translate"]{ display: inline; }', '', function(opts) {
+	    this.mixin('translate')
+
+	    this.translate.on('update', function() {
+	        this.update();
+	    }.bind(this))
+
+		this.on('mount', function() {
+			this.hasRefs = this.refs != undefined
+			this.apply();
+		})
+
+	    this.on('update', function() {
+			this.apply();
+		})
+
+		this.apply = function() {
+			var refs = this.hasRefs ? this.refs : this;
+			var phrase = this.translate.apply(refs.original.innerHTML);
+			for (var key in this.opts) {
+				phrase = phrase.replace('{' + key.replace(/([A-Z])/g, "-$1").toLowerCase() + '}', this.opts[key]);
+			}
+			var parentNode = this.root;
+			while (parentNode.hasChildNodes()) {
+    			parentNode.removeChild(parentNode.firstChild);
+			}
+			var span = document.createElement('span');
+			span.innerHTML = phrase;
+			parentNode.appendChild(span);
+		}
+	});
 }));
